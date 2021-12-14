@@ -10,9 +10,11 @@ public class ButtonExcess : Selectable
 	//An replicate of the default button on click event
 	public Button.ButtonClickedEvent onClick;
 	[Tooltip("The event when button state change")] public StateChanging onStateChange = new StateChanging();
-	[Tooltip("The button's current state")] public States currentState; 
+	[Tooltip("The event when button toggle change")] public Toggling onToggle = new Toggling();
+	[Tooltip("The button's current state")] public States currentState; public bool areToggle;
 	States defaultState; //The state where the button will revert back to
 	[Serializable] public class StateChanging : UnityEvent<States> {} //The event that send state
+	[Serializable] public class Toggling : UnityEvent<bool> {} //The event that toggle state
 	//All the state of button
 	public enum States {Normal, Highlighted, Pressed, Selected, Disabled, Holded, Released}
 
@@ -33,8 +35,18 @@ public class ButtonExcess : Selectable
 		}
 		//Don't change state if the current state are holding
 		if(currentState == States.Holded) {return;}
-		//Send the onCLick event then Begin holding if transition state are pressed
-		if(state == SelectionState.Pressed) {onClick.Invoke(); StartCoroutine(Holding(true));}
+		//If transition state to pressed
+		if(state == SelectionState.Pressed) 
+		{
+			//Cycle between toggle
+			areToggle = !areToggle;
+			//Send the toggle event
+			onToggle.Invoke(areToggle);
+			//Send the onCLick event
+			onClick.Invoke(); 
+			//Begin holding
+			StartCoroutine(Holding(true));
+		}
 		//Update the state as the selectable transition state
 		UpdateState(state.ToString());
 	}
@@ -53,8 +65,8 @@ public class ButtonExcess : Selectable
 	///Begin holding the button
 	IEnumerator Holding(bool isHold)
 	{
-		//Wait for an frame to cycle between holding or not
-		yield return null; isHold = !!isHold;
+		//Wait for an frame
+		yield return null;
 		//Change state to holded if currently hold and back to default state if stop holding
 		if(isHold) {UpdateState("Holded");} else {UpdateState(defaultState.ToString());}
 	}

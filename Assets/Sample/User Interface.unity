@@ -949,7 +949,11 @@ MonoBehaviour:
   onStateChange:
     m_PersistentCalls:
       m_Calls: []
+  onToggle:
+    m_PersistentCalls:
+      m_Calls: []
   currentState: 0
+  areToggle: 0
 --- !u!114 &625233047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1461,7 +1465,11 @@ MonoBehaviour:
   onStateChange:
     m_PersistentCalls:
       m_Calls: []
+  onToggle:
+    m_PersistentCalls:
+      m_Calls: []
   currentState: 0
+  areToggle: 0
 --- !u!114 &920514952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1723,7 +1731,11 @@ MonoBehaviour:
   onStateChange:
     m_PersistentCalls:
       m_Calls: []
+  onToggle:
+    m_PersistentCalls:
+      m_Calls: []
   currentState: 0
+  areToggle: 0
 --- !u!114 &989099332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3809,7 +3821,11 @@ MonoBehaviour:
   onStateChange:
     m_PersistentCalls:
       m_Calls: []
+  onToggle:
+    m_PersistentCalls:
+      m_Calls: []
   currentState: 0
+  areToggle: 0
 --- !u!114 &2138003569
 MonoBehaviour:
   m_ObjectHideFlags: 0

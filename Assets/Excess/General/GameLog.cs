@@ -1,13 +1,11 @@
 using System.Collections; using UnityEngine;
 
-/* How to use:
-	- Create an log using TMPro UI by using GameLogs.debug.log();
-*/
-
-public class GameLogs : MonoBehaviour
+namespace Excess
+{
+public class Logs : MonoBehaviour
 {
 	//Turn this script into singleton
-	public static GameLogs debug; void Awake() {debug = this;}
+	public static Logs debug; void Awake() {debug = this;}
 	//An text to display
 	[SerializeField][TextArea] public string text;
 	//Log duration
@@ -47,4 +45,5 @@ public class GameLogs : MonoBehaviour
 
 	//Update log UGUI
 	void Update() {display.text = text;}
+}
 }

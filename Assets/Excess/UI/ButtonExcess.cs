@@ -9,7 +9,7 @@ public class ButtonExcess : Selectable
 {
 	//An replicate of the default button on click event
 	public Button.ButtonClickedEvent onClick;
-	[Tooltip("The event when button state change")] public StateChanging onStateChange;
+	[Tooltip("The event when button state change")] public StateChanging onStateChange = new StateChanging();
 	[Tooltip("The button's current state")] public States currentState; 
 	States defaultState; //The state where the button will revert back to
 	[Serializable] public class StateChanging : UnityEvent<States> {} //The event that send state
@@ -33,8 +33,8 @@ public class ButtonExcess : Selectable
 		}
 		//Don't change state if the current state are holding
 		if(currentState == States.Holded) {return;}
-		//Begin holding if transition state are pressed
-		if(state == SelectionState.Pressed) {StartCoroutine(Holding(true));}
+		//Send the onCLick event then Begin holding if transition state are pressed
+		if(state == SelectionState.Pressed) {onClick.Invoke(); StartCoroutine(Holding(true));}
 		//Update the state as the selectable transition state
 		UpdateState(state.ToString());
 	}

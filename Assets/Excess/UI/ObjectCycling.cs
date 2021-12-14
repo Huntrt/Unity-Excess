@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonCycling : MonoBehaviour
+public class ObjectCycling : MonoBehaviour
 {
 	//List of gameobject to cycle
     public List<GameObject> cycleList = new List<GameObject>();

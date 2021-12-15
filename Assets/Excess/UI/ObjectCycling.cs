@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+namespace ExcessPackage
+{
 public class ObjectCycling : MonoBehaviour
 {
 	//List of gameobject to cycle
@@ -37,4 +40,5 @@ public class ObjectCycling : MonoBehaviour
 		//Display only the current cycle object
 		cycleList[currentCycle].SetActive(true);
 	}
+}
 }

@@ -1,7 +1,6 @@
-using System.Collections; 
 using UnityEngine;
 
-namespace Excess
+namespace ExcessPackage
 {
 public class LogEx : MonoBehaviour
 {

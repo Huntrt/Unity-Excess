@@ -1,5 +1,5 @@
 using UnityEngine;
-using Huntrt.Excess;
+using ExcessPackage;
 
 public class ColorCodedTest : MonoBehaviour
 {

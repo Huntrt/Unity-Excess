@@ -5,18 +5,21 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 
+namespace ExcessPackage { namespace UI 
+{
+//All the state of button
+public enum ButtonState {Normal, Highlighted, Pressed, Selected, Disabled, Holded, Released}
+
 public class ButtonExcess : Selectable
 {
 	//An replicate of the default button on click event
 	public Button.ButtonClickedEvent onClick;
 	[Tooltip("The event when button state change")] public StateChanging onStateChange = new StateChanging();
 	[Tooltip("The event when button toggle change")] public Toggling onToggle = new Toggling();
-	[Tooltip("The button's current state")] public States currentState; public bool areToggle;
-	States defaultState; //The state where the button will revert back to
-	[Serializable] public class StateChanging : UnityEvent<States> {} //The event that send state
+	[Tooltip("The button's current state")] public ButtonState currentState; public bool areToggle;
+	ButtonState defaultState; //The state where the button will revert back to
+	[Serializable] public class StateChanging : UnityEvent<ButtonState> {} //The event that send state
 	[Serializable] public class Toggling : UnityEvent<bool> {} //The event that toggle state
-	//All the state of button
-	public enum States {Normal, Highlighted, Pressed, Selected, Disabled, Holded, Released}
 
 	///When the button state are change
 	protected override void DoStateTransition(SelectionState state, bool instant)
@@ -27,14 +30,14 @@ public class ButtonExcess : Selectable
 		switch(state)
 		{
 			//The default state are now normal when transition to normal
-			case SelectionState.Normal: defaultState = States.Normal; break;
+			case SelectionState.Normal: defaultState = ButtonState.Normal; break;
 			//The default state are now highlighted when transition to highlighted
-			case SelectionState.Highlighted: defaultState = States.Highlighted; break;
+			case SelectionState.Highlighted: defaultState = ButtonState.Highlighted; break;
 			//The default state are now selected when transition to selected
-			case SelectionState.Selected: defaultState = States.Selected; break;
+			case SelectionState.Selected: defaultState = ButtonState.Selected; break;
 		}
 		//Don't change state if the current state are holding
-		if(currentState == States.Holded) {return;}
+		if(currentState == ButtonState.Holded) {return;}
 		//If transition state to pressed
 		if(state == SelectionState.Pressed) 
 		{
@@ -75,8 +78,9 @@ public class ButtonExcess : Selectable
 	void UpdateState(string StateSet)
 	{
 		//Update the current state to the state has set
-		currentState = (States)Enum.Parse(typeof(States), StateSet.ToString());
+		currentState = (ButtonState)Enum.Parse(typeof(ButtonState), StateSet.ToString());
 		//Send an event with the current state
 		onStateChange.Invoke(currentState);
 	}
 }
+}}

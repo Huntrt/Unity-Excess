@@ -2,6 +2,8 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine;
 
+namespace ExcessPackage { namespace UI 
+{
 public class ButtonConfirmation : MonoBehaviour
 {
 	[Tooltip("The button excess component that use multi graphic")] [SerializeField] ButtonExcess excessButton;
@@ -23,7 +25,7 @@ public class ButtonConfirmation : MonoBehaviour
 	void Update()
 	{
 		//If the confirm button currently holding while ablt to confirm
-		if(allowConfirm && excessButton.currentState == ButtonExcess.States.Holded)
+		if(allowConfirm && excessButton.currentState == ButtonState.Holded)
 		{
 			//Are currently confirming
 			areConfirming = true;
@@ -36,10 +38,10 @@ public class ButtonConfirmation : MonoBehaviour
 		}
 	}
 
-	void ExitConfirmation(ButtonExcess.States state)
+	void ExitConfirmation(ButtonState state)
 	{
 		//Stopping confirm if the button are released while confirming only when able to confirm
-		if(state == ButtonExcess.States.Released && areConfirming && allowConfirm) {ResetConfirming();}
+		if(state == ButtonState.Released && areConfirming && allowConfirm) {ResetConfirming();}
 	}
 
 	//Reset bar filling and the counter and confirm status
@@ -48,3 +50,4 @@ public class ButtonConfirmation : MonoBehaviour
 	//Filling the confirm progress bar with set amount
 	void BarFilling(float amount) {confirmBar.fillAmount = amount;}
 }
+}}

@@ -1,6 +1,8 @@
 using System.Collections.Generic; 
 using UnityEngine;
 
+namespace ExcessPackage
+{
 public class Pool : MonoBehaviour
 {
 	//The pool contain all the object has create
@@ -57,4 +59,5 @@ public class Pool : MonoBehaviour
 		//Set the child object parent as this pooler object depend on if need to and none if not
 		if(parent) {child.transform.SetParent(transform);} else {child.transform.SetParent(null);}
 	}
+}
 }

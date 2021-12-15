@@ -6,12 +6,10 @@ namespace ExcessPackage
 public class Pool : MonoBehaviour
 {
 	//The pool contain all the object has create
-	public List<GameObject> objectsPool = new List<GameObject>();
-	//Turn this script into singleton
-    public static Pool s; void Awake() {s = this;}
+	public static List<GameObject> objectsPool = new List<GameObject>();
 
-	//Create the object needed with wanted position, rotation, does it auto active upon create? and do it need to auto has parent?
-    public GameObject Create(GameObject Need, Vector3 Position, Quaternion Rotation, bool autoActive = true, bool autoParent = true)
+	//Create the object needed with wanted position, rotation, does it auto active upon create? and do it need to has parent?
+    public static GameObject Create(GameObject Need, Vector3 Position, Quaternion Rotation, bool autoActive = true, Transform parent = null)
     {
 		///If there is unactive object in pool
         if(objectsPool.Count > 0)
@@ -30,11 +28,11 @@ public class Pool : MonoBehaviour
 					objectsPool[i].transform.position = Position;
 					//Set the polled object rotation
 					objectsPool[i].transform.rotation = Rotation;
-					//Set the pooled object parent if needed to
-					Parenting(objectsPool[i], autoParent);
+					//Set the pooled object parent from parameter
+					objectsPool[i].transform.SetParent(parent);
 					//Active it depend if need to active
 					objectsPool[i].SetActive(autoActive);
-					//Send it to caller and no need to continue code
+					//Return it that object and no need to continue code
 					return objectsPool[i];
 				}
 			}
@@ -43,21 +41,15 @@ public class Pool : MonoBehaviour
 		{
 			//Create the needed object witth set position and rotation
 			GameObject newObject = Instantiate(Need, Position, Rotation);
-			//Set the new object parent if needed to
-			Parenting(newObject, autoParent);
+			//Set the new object parent from parameter
+			newObject.transform.SetParent(parent);
 			//Add it into pool list
 			objectsPool.Add(newObject);
 			//Set the new object active state
 			newObject.SetActive(autoActive);
-			//Send new object to caller
+			//Return the new object to
 			return newObject;
 		}
     }
-
-	void Parenting(GameObject child, bool parent) 
-	{
-		//Set the child object parent as this pooler object depend on if need to and none if not
-		if(parent) {child.transform.SetParent(transform);} else {child.transform.SetParent(null);}
-	}
 }
 }

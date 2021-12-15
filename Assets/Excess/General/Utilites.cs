@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace ExcessPackage
 {
-	public struct Utilites
+	public static class Utilites
 	{
 		#region Color Coded
 		public static string ColorCode(string text, Color color)
@@ -16,25 +17,24 @@ namespace ExcessPackage
 		#endregion
 
 		#region Weight System
-		//The item will drop and it weight to drop
-		public class WeightItem {public Object item ; public float weight;}
+		//The gameoject will drop and it weight
+		[Serializable] public class ObjectWeight {public GameObject dropObject; public float weight;}
 
-		//Drop an item inside an list parameter by using it weight
-		public static Object Dropping(List<WeightItem> list)
+		//Drop an object in the list parameter by using it weight
+		public static GameObject WeightResult(List<ObjectWeight> list)
 		{
-			//Getting the total weight of all the item in list
-			float total = 0; foreach (WeightItem w in list) {total += w.weight;}
+			//Getting the total weight of all the object in list
+			float total = 0; foreach (ObjectWeight w in list) {total += w.weight;}
 			//Generate chance from 0 to total weight
-			float chance = Random.Range(0, total);
-			//Go through all the item in list
+			float chance = UnityEngine.Random.Range(0, total);
+			//Go through all the object in list
 			for (int d = list.Count - 1; d >= 0 ; d--)
 			{
-				//Drop the item if it weight take all the chance
-				if((chance - list[d].weight) <= 0) {return list[d].item;}
-				//Decrease the chance with item weight if it FAIL to take all the chance
+				//This object are the result if it weight take all the chance
+				if((chance - list[d].weight) <= 0) {return list[d].dropObject;}
+				//Decrease the chance with object weight if it FAIL to take all the chance
 				else {chance -= list[d].weight;}
 			}
-			//Send null only when somehow it go below 0
 			return null;
 		}
 		#endregion

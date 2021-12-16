@@ -467,7 +467,7 @@ MonoBehaviour:
   - dropObject: {fileID: 1450448832}
     weight: 6
   - dropObject: {fileID: 885722702}
-    weight: 5
+    weight: 1000
   - dropObject: {fileID: 1193090229}
     weight: 7
   - dropObject: {fileID: 1196270999}
@@ -475,7 +475,7 @@ MonoBehaviour:
   - dropObject: {fileID: 1472070211}
     weight: 8.5
   - dropObject: {fileID: 356221507}
-    weight: 10
+    weight: 2000
 --- !u!1 &262718449
 GameObject:
   m_ObjectHideFlags: 0

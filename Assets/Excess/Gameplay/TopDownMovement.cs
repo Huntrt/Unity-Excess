@@ -4,9 +4,9 @@ public class TopDownMovement : MonoBehaviour
 {
 	[SerializeField] float speed;
 	public Vector3 inputDirection;
-	[SerializeField] bool cameraFollow;
 	public Rigidbody2D Rigidbody;
-	[SerializeField] Vector2 targetPos;
+	[SerializeField] Camera cameraFollow;
+	[SerializeField] Vector2 mousePos;
 	
     void Update()
     {
@@ -32,13 +32,13 @@ public class TopDownMovement : MonoBehaviour
 
 	void LateUpdate()
 	{
-		//If camera follow enable
-		if(cameraFollow)
+		//If there is camera follow
+		if(cameraFollow != null)
 		{
 			//Camera following player
-			Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,-10);
+			cameraFollow.transform.position = new Vector3(transform.position.x, transform.position.y,-10);
 			//Get the mouse position if needed
-			targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mousePos = cameraFollow.ScreenToWorldPoint(Input.mousePosition);
 		}
 	}
 }

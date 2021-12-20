@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class WeightTesting : MonoBehaviour
 {
-	public List<Utilites.ObjectWeight> objects = new List<Utilites.ObjectWeight>();
+	public List<UtilitesEx.ObjectWeight> objects = new List<UtilitesEx.ObjectWeight>();
 
-	public void LogResult()
+	public void DisplayResult()
 	{
 		//Log thr weight result name
-		LogEx.Debug.Log(Utilites.WeightResult(objects).name);
+		LogEx.Debug.Log(UtilitesEx.WeightResult(objects).name);
 	}
 }

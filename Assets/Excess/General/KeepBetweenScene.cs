@@ -3,8 +3,6 @@ using UnityEngine;
 [DefaultExecutionOrder(-5)] //Set execution order in script
 public class KeepBetweenScene : MonoBehaviour
 {
-	/// The component rename the component if wanted more version
-	/// Could just copy and paste this code to integrate into any code 
 	static KeepBetweenScene keeped;
 
 	void Awake()

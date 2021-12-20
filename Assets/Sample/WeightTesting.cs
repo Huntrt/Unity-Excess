@@ -1,14 +1,22 @@
 using System.Collections.Generic;
+using ExcessPackage.UI;
 using ExcessPackage;
 using UnityEngine;
+using TMPro;
 
 public class WeightTesting : MonoBehaviour
 {
-	public List<UtilitesEx.ObjectWeight> objects = new List<UtilitesEx.ObjectWeight>();
+	[SerializeField] ButtonExcess excessButton;
+	public List<UtilitesEx.ObjectWeight> drops = new List<UtilitesEx.ObjectWeight>();
+	public List<TextMeshProUGUI> counters = new List<TextMeshProUGUI>();
 
-	public void DisplayResult()
+	void Update() {if(excessButton.currentState == ButtonState.Holded) {CountResult();}}
+
+	public void CountResult()
 	{
-		//Log thr weight result name
-		LogEx.Debug.Log(UtilitesEx.WeightResult(objects).name);
+		//The name of object has drop
+		string drop = UtilitesEx.WeightResult(drops).name + " counter";
+		//Increase the counter of the object has drop
+		foreach (TextMeshProUGUI c in counters) {if(drop == c.name) {c.text = (int.Parse(c.text) + 1).ToString();}}
 	}
 }

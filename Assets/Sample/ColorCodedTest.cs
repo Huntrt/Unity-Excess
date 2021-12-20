@@ -9,6 +9,6 @@ public class ColorCodedTest : MonoBehaviour
 	void OnValidate()
 	{
 		if(display == null) {return;}
-		display.text = "This " + Utilites.ColorCode("word", color) + " is yellow";
+		display.text = "This " + UtilitesEx.ColorCode("word", color) + " is yellow";
 	}
 }

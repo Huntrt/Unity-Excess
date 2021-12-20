@@ -15,16 +15,19 @@ public class ButtonConfirmation : MonoBehaviour
 	{
 		//Attempt to get the button excess on this object if haven't has any excess button
 		if(excessButton == null) {excessButton = GetComponent<ButtonExcess>();}
-		//Print an error if this component has no ButtonExcess component assign
-		if(excessButton == null) {Debug.LogError("The button confirmation component of "+gameObject.name+" need an button excess component to work"); return;}
 	}
 
-	//Eixiting the the confirm when button excess get relased
-	void Start() {excessButton.onStateChange.AddListener(ExitConfirmation);}
+	void Start()
+	{
+		//Print an error if this component has no ButtonExcess component assign
+		if(excessButton == null) {Debug.LogError("The button confirmation component of "+gameObject.name+" need an button excess component to work"); return;}
+		//Reset confirm when button excess get release while currently confirming and allow to confirm
+		excessButton.onStateChange.AddListener((ButtonState s)=>{if(s == ButtonState.Released && areConfirming && allowConfirm) {ResetConfirming();}});		
+	}
 
 	void Update()
 	{
-		//If the confirm button currently holding while ablt to confirm
+		//If the confirm button currently holding while able to confirm
 		if(allowConfirm && excessButton.currentState == ButtonState.Holded)
 		{
 			//Are currently confirming
@@ -36,12 +39,6 @@ public class ButtonConfirmation : MonoBehaviour
 			//Send complete confirmation event and reset the progress when counter reached duration
 			if(confirmCounter >= confirmDuration){ResetConfirming(); onConfirming.Invoke();}
 		}
-	}
-
-	void ExitConfirmation(ButtonState state)
-	{
-		//Stopping confirm if the button are released while confirming only when able to confirm
-		if(state == ButtonState.Released && areConfirming && allowConfirm) {ResetConfirming();}
 	}
 
 	//Reset bar filling and the counter and confirm status

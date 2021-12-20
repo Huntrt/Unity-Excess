@@ -16,14 +16,14 @@ public class MultiGraphicButton : MonoBehaviour
 	{
 		//Attempt to get the button excess on this object if haven't has any excess button
 		if(excessButton == null) {excessButton = GetComponent<ButtonExcess>();}
-		//Print an error if this component has no ButtonExcess component assign
-		if(excessButton == null) {Debug.LogError("The multitarget component of "+gameObject.name+" need an button excess component to work"); return;}
 		//Reset all the target graphic color back to normal color
 		UpdateColor(ButtonState.Normal);
 	}
 
 	void Start()
-	{
+	{	
+		//Print an error if this component has no ButtonExcess component assign
+		if(excessButton == null) {Debug.LogError("The multitarget component of "+gameObject.name+" need an button excess component to work"); return;}
 		//Update target color when the button state change if there is excess button assign
 		if(excessButton != null) {excessButton.onStateChange.AddListener(UpdateColor);}
 	}

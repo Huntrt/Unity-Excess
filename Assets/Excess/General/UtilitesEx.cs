@@ -4,7 +4,7 @@ using System;
 
 namespace ExcessPackage
 {
-	public static class Utilites
+	public static class UtilitesEx
 	{
 		#region Color Coded
 		public static string ColorCode(string text, Color color)

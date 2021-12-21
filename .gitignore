@@ -67,5 +67,5 @@ crashlytics-build.properties
 
 #Misc
 desktop.ini
-revise.txt
+*.sketch
 [Aa]ssets/[Ss]treamingAssets/aa/*

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TopDownMovement : MonoBehaviour
+public class TopDownController : MonoBehaviour
 {
 	[SerializeField] float speed;
 	public Vector3 inputDirection;

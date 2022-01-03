@@ -1,8 +1,6 @@
 using System.Collections.Generic; 
 using UnityEngine;
 
-namespace ExcessPackage
-{
 public class Pool : MonoBehaviour
 {
 	//Make the pool component into singleton
@@ -53,5 +51,4 @@ public class Pool : MonoBehaviour
 			return newObject;
 		}
     }
-}
 }

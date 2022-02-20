@@ -26,7 +26,7 @@ public class ButtonExcess : Selectable
 	{
 		//Run the Selectable's DoStateTransition function
 		base.DoStateTransition(state, instant);
-		//Check the state of transitioning
+		//Check the state when transitioning to save the default state
 		switch(state)
 		{
 			//The default state are now normal when transition to normal
@@ -38,7 +38,7 @@ public class ButtonExcess : Selectable
 		}
 		//Don't change state if the current state are holding
 		if(currentState == ButtonState.Holded) {return;}
-		//If transition state to pressed
+		//If transition state are pressed
 		if(state == SelectionState.Pressed) 
 		{
 			//Cycle between toggle
@@ -46,12 +46,19 @@ public class ButtonExcess : Selectable
 			//Send the toggle event
 			onToggle.Invoke(areToggle);
 			//Send the onCLick event
-			onClick.Invoke(); 
-			//Begin holding
-			StartCoroutine(Holding(true));
+			onClick.Invoke();
+			//Begin holding it if the button gameobject are still active
+			if(gameObject.activeInHierarchy) {Holding(true);}
 		}
-		//Update the state as the selectable transition state
-		UpdateState(state.ToString());
+		//Update the state to be the selectable transition state (only if not the pressed state)
+		if(state != SelectionState.Pressed) {UpdateState(state.ToString());}
+	}
+	
+	///Begin holding the button base on the bool given
+	void Holding(bool isHold)
+	{
+		//Change state to holded if currently hold and back to default state if stop holding
+		if(isHold) {UpdateState("Holded");} else {UpdateState(defaultState.ToString());}
 	}
 
 	///When no longer press the button
@@ -59,25 +66,19 @@ public class ButtonExcess : Selectable
 	{
 		//Run the Selectable's OnPointerUp function
 		base.OnPointerUp(eventData);
-		//Revert state back to normal
-		StartCoroutine(Holding(false));
+		//No longer holding button
+		Holding(false);
 		//Change the state to release
 		UpdateState("Released");
 	}
 
-	///Begin holding the button
-	IEnumerator Holding(bool isHold)
-	{
-		//Wait for an frame
-		yield return null;
-		//Change state to holded if currently hold and back to default state if stop holding
-		if(isHold) {UpdateState("Holded");} else {UpdateState(defaultState.ToString());}
-	}
+	///Stop holding the button when it got disable
+	protected override void OnDisable() {base.OnDisable(); Holding(false);}
 
 	///Updating the button excess state
 	void UpdateState(string StateSet)
 	{
-		//Update the current state to the state has set
+		//Update the current state to the state has given
 		currentState = (ButtonState)Enum.Parse(typeof(ButtonState), StateSet.ToString());
 		//Send an event with the current state
 		onStateChange.Invoke(currentState);

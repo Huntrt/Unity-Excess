@@ -6,7 +6,6 @@ public class TopDownController : MonoBehaviour
 	public Vector3 inputDirection;
 	public Rigidbody2D Rigidbody;
 	[SerializeField] Camera cameraFollow;
-	[SerializeField] Vector2 mousePos;
 	
     void Update()
     {
@@ -26,19 +25,13 @@ public class TopDownController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		//Moving the player
+		//Moving the player using velocity has get
 		Rigidbody.MovePosition(Rigidbody.position + velocity * Time.fixedDeltaTime);
 	}
 
 	void LateUpdate()
 	{
-		//If there is camera follow
-		if(cameraFollow != null)
-		{
-			//Camera following player
-			cameraFollow.transform.position = new Vector3(transform.position.x, transform.position.y,-10);
-			//Get the mouse position if needed
-			mousePos = cameraFollow.ScreenToWorldPoint(Input.mousePosition);
-		}
+		//Make the camera follow player if there is camera assign
+		if(cameraFollow != null) {cameraFollow.transform.position = new Vector3(transform.position.x, transform.position.y,-10);}
 	}
 }

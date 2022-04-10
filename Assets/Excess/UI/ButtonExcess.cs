@@ -38,20 +38,22 @@ public class ButtonExcess : Selectable
 		}
 		//Don't change state if the current state are holding
 		if(currentState == ButtonState.Holded) {return;}
-		//If transition state are pressed
-		if(state == SelectionState.Pressed) 
+		//If transition to pressed
+		if(transition == SelectionState.Pressed)
 		{
+			///Send the onCLick event
+			onClick.Invoke();
+			///Update state to pressed*
+			UpdateState(transition.ToString());
 			//Cycle between toggle
 			areToggle = !areToggle;
 			//Send the toggle event
 			onToggle.Invoke(areToggle);
-			//Send the onCLick event
-			onClick.Invoke();
 			//Begin holding it if the button gameobject are still active
 			if(gameObject.activeInHierarchy) {Holding(true);}
 		}
-		//Update the state to be the selectable transition state (only if not the pressed state)
-		if(state != SelectionState.Pressed) {UpdateState(state.ToString());}
+		//Update the state to be the transition state (except for pressed transition*)
+		if(transition != SelectionState.Pressed) {UpdateState(transition.ToString());}
 	}
 	
 	///Begin holding the button base on the bool given

@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class Pool : MonoBehaviour
 {
-	//Make the pool component into singleton
-	public static Pool s; void Awake() {s = this;}
+	//Set this class to singleton
+	public static Pool i {get{if(_i==null){_i = GameObject.FindObjectOfType<Pool>();}return _i;}} static Pool _i;
 	//The pool contain all the object has create
 	public List<GameObject> poolList = new List<GameObject>();
 
 	//Create the object needed with wanted position, rotation, does it auto active upon create? and do it need to has parent?
-    public GameObject Create(GameObject Need, Vector3 Position, Quaternion Rotation, bool autoActive = true, Transform parent = null)
+    public GameObject Create(GameObject Need, Vector3 Position, Quaternion Rotation, bool AutoActive = true, Transform Parent = null)
     {
 		///If there is unactive object in pool
         if(poolList.Count > 0)
@@ -19,20 +19,18 @@ public class Pool : MonoBehaviour
 			{
 				//Remove any null object left from pool then skip it from being check
 				if(poolList[i] == null) {poolList.RemoveAt(i); continue;}
-				//Remove the "(Clone)" out of gameobject from pool name
-				string objectName = poolList[i].name.Replace("(Clone)","");
-				//If there is an unactive object in pool with the same name of object need to get
-				if(!poolList[i].activeInHierarchy && string.Equals(Need.name, objectName))
+				//If there is an unactive object in pool has the same transform of object need to get
+				if(!poolList[i].activeInHierarchy && poolList[i].transform == Need.transform)
 				{
 					//Set the polled object position
 					poolList[i].transform.position = Position;
 					//Set the polled object rotation
 					poolList[i].transform.rotation = Rotation;
 					//Set the pooled object parent from parameter
-					poolList[i].transform.SetParent(parent);
+					poolList[i].transform.SetParent(Parent);
 					//Active it depend if need to active
-					poolList[i].SetActive(autoActive);
-					//Return it that object and no need to continue code
+					poolList[i].SetActive(AutoActive);
+					//Return it that object and no need to create need
 					return poolList[i];
 				}
 			}
@@ -42,11 +40,11 @@ public class Pool : MonoBehaviour
 			//Create the needed object witth set position and rotation
 			GameObject newObject = Instantiate(Need, Position, Rotation);
 			//Set the new object parent from parameter
-			newObject.transform.SetParent(parent);
+			newObject.transform.SetParent(Parent);
 			//Add it into pool list
 			poolList.Add(newObject);
 			//Set the new object active state
-			newObject.SetActive(autoActive);
+			newObject.SetActive(AutoActive);
 			//Return the new object to
 			return newObject;
 		}

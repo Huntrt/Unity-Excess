@@ -34,7 +34,9 @@ public class CameraController : MonoBehaviour
 		//Save the cam transform
 		Transform camTF = cam.transform;
 		//Moving the cam position using input direction multiply with speed
-		camTF.position = (Vector2)camTF.position + inputDirection * (moveSpeed * Time.deltaTime);
+		camTF.position = (Vector2)camTF.position + inputDirection.normalized * (moveSpeed * Time.deltaTime);
+		//Reset camera position Z back to -10
+		camTF.position = new Vector3(camTF.position.x, camTF.position.y, -10);
 	}
 
 	void Zoom()

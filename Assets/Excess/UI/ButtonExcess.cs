@@ -82,7 +82,6 @@ public class ButtonExcess : Selectable
 	///Updating the button excess state
 	void UpdateState(string StateSet)
 	{
-		print(StateSet);
 		//Update the current state to the state has given
 		currentState = (ButtonState)Enum.Parse(typeof(ButtonState), StateSet.ToString());
 		//Send an event with the current state
